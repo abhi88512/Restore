@@ -1,14 +1,12 @@
-import { Product } from "../../models/product";
+import { useFetchProductsQuery } from "./catalogApi";
 import ProductList from "./ProductList";
 
-type Props ={
-    products:  Product[];
-}
-
-export default function Catalog({ products}: Props) {
+export default function Catalog() {
+  const { data: allProducts, isLoading } = useFetchProductsQuery();
+  if (isLoading || !allProducts) return <div>Loading...</div>;
   return (
     <>
-      <ProductList products={products} />      
+      <ProductList products={allProducts} />
     </>
-  )
+  );
 }
