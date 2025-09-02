@@ -9,6 +9,7 @@ import { router } from "../routes/Routes";
 
 const customBaseQuery = fetchBaseQuery({
   baseUrl: "https://localhost:5001/api",
+  credentials: "include",
 });
 
 type ErrorResponse =
@@ -39,7 +40,6 @@ export const baseQueryWithErrorHandling = async (
       case 400:
         if (typeof errorData === "object" && "errors" in errorData) {
           if (typeof errorData.errors === "object") {
-            // Handle errors as object - get all error messages and join them
             const errorMessages = Object.values(errorData.errors).flat();
             toast.error(errorMessages.join(", "));
           } else {
